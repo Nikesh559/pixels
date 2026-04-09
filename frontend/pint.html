@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixels - Image Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Pixels</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for ideas...">
+            <button id="searchBtn">Search</button>
+        </div>
+    </header>
+
+    <main id="imageGrid" class="masonry-grid">
+        </main>
+
+</body>
+</html>
+
+<style>
+    /* Update the .pin to handle the card container */
+.pin {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px; /* Space between cards vertically */
+    break-inside: avoid; /* Prevents card from splitting across columns */
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden; /* Clips image corners to the border-radius */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: 1px solid #efefef;
+    cursor: pointer;
+}
+
+/* Hover effect for that "premium" feel */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 12px 16px;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #111;
+    /* Optional: Truncate long titles */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-text {
+    font-size: 0.85rem;
+    color: #5f5f5f;
+    line-height: 1.4;
+}
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+}
+
+.logo {
+    color: #e60023;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.search-bar {
+    flex-grow: 1;
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid #efefef;
+    background-color: #efefef;
+    outline: none;
+}
+
+input:focus {
+    border-color: #bdbdbd;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    background-color: #e60023;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* The Masonry Magic */
+.masonry-grid {
+    padding: 20px;
+    column-count: 5; /* 5 columns on desktop */
+    column-gap: 15px;
+}
+
+.pin {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.pin img {
+    width: 100%;
+    display: block;
+    border-radius: 16px;
+}
+
+.pin:hover {
+    transform: scale(1.02);
+    filter: brightness(90%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) { .masonry-grid { column-count: 4; } }
+@media (max-width: 900px) { .masonry-grid { column-count: 3; } }
+@media (max-width: 600px) { .masonry-grid { column-count: 2; } }
+</style>
+<script>
+    const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const imageGrid = document.getElementById('imageGrid');
+
+
+async function fetchImages() {
+    const query = searchInput.value;
+    if (!query) return alert("Please enter a search term!");
+
+    
+    try {
+        const response = await fetch('http://localhost:8000/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: query })
+            });
+        // const response = await fetch(url);
+        const data = await response.json();
+        displayImages(data.images);
+    } catch (error) {
+        console.error("Error fetching images:", error);
+    }
+}
+
+function displayImages2(images) {
+    // Clear existing images
+    imageGrid.innerHTML = '';
+
+    images.forEach(img => {
+        const pin = document.createElement('div');
+        pin.classList.add('pin');
+        console.log("Displaying image:", img);
+        pin.innerHTML = `
+            <img src="${img.filename}" alt="${img.alt_description}">
+            <p>${img.title || "Untitled"}</p>
+        `;
+
+        imageGrid.appendChild(pin);
+    });
+}
+
+function displayImages(images) {
+    // Clear existing images
+    imageGrid.innerHTML = '';
+
+    images.forEach(img => {
+        const pin = document.createElement('div');
+        pin.classList.add('pin');
+        
+        // Creating the Card structure
+        pin.innerHTML = `
+            <div class="card">
+                <img src="${img.filename}" alt="${img.alt_description || 'Image'}" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">${img.title || "Untitled Pin"}</h3>
+                </div>
+            </div>
+        `;
+
+        imageGrid.appendChild(pin);
+    });
+}
+searchBtn.addEventListener('click', fetchImages);
+
+// Allow pressing "Enter" to search
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') fetchImages();
+});
+</script>
