@@ -1,3 +1,6 @@
+## About
+1. Helps you search images using descriptive query to better search results.
+2. 
 ## Working of Application
 
 1. Developed search platform using vector embeddings to replace keyword matching with natural language queries.
