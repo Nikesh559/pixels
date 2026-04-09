@@ -12,12 +12,13 @@ allowing users to find images via descriptive prompts and PostgreSQL retrieval.
 3. Messaging Service: Kafka
 4. LLM: Mistal for NLP, Gemma for VLM
 
-
-## System Design
-<img src="https://raw.githubusercontent.com/Nikesh559/ecommerce-semantic-search/refs/heads/main/system-design.png" alt="Alt text" width="700">
-
 ## Web Page
 
 <img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/ss1.png" alt="Alt text" width="700">
 
 <img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/ss2.png" alt="Alt text" width="700">
+
+
+## System Design
+<img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/ss3.png" alt="Alt text" width="700">
+
