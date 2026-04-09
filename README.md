@@ -1,6 +1,6 @@
 ## About
-1. Helps you search images using descriptive query to better search results.
-2. 
+1. Helps you search images using descriptive query rather than keywords to better optimize the search results using NLP.
+
 ## Working of Application
 
 1. Developed search platform using vector embeddings to replace keyword matching with natural language queries.
