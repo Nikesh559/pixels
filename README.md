@@ -72,3 +72,29 @@ The pipeline uses Mistral for text embeddings and Gemma 4 (VLM) for image analys
     
     # Mistral is used for NLP and semantic embedding
     ollama pull mistral
+3. Clone the Repository
+   
+Start by cloning the project to your local machine:
+
+    # git clone https://github.com/Nikesh559/pixels.git
+    # cd pixels
+
+4. Virtual Environment Setup
+   
+It is highly recommended to use a virtual environment to isolate project dependencies
+
+    # python3 -m venv venv
+    # source venv/bin/activate
+    
+Install Dependencies:
+
+    # pip3 install --upgrade pip
+    # pip3 install -r requirements.txt
+
+
+5. Build and Launch
+   
+Build the images and start containers in detached mode (background)
+    
+    # docker-compose up --build -d
+   
