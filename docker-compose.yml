@@ -54,7 +54,7 @@ services:
 
   app:
     build: .
-    container_name: python-app
+    container_name: pixels
     depends_on:
       - db
       - kafka
