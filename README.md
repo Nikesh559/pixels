@@ -97,4 +97,14 @@ Install Dependencies:
 Build the images and start containers in detached mode (background)
     
     # docker-compose up --build -d
-   
+
+
+## API Endpoints
+
+Page to Add Image  
+ 
+    # http://localhost:8000
+
+Page to Search Image
+  
+    # http://localhost:8000/search-images
