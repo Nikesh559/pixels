@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pixels
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   zookeeper:
     image: zookeeper:3.9
@@ -18,7 +30,9 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
   qdrant:
@@ -42,12 +56,20 @@ services:
     build: .
     container_name: python-app
     depends_on:
+      - db
       - kafka
       - qdrant
       - minio
     ports:
       - "8000:8000"
     environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      # Database connection for SQLAlchemy/Psycopg
+      DATABASE_URL: postgresql://user:password@db:5432/pixels
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       QDRANT_HOST: qdrant
       MINIO_ENDPOINT: minio:9000
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password
+
+volumes:
+  postgres_data:
