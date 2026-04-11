@@ -42,9 +42,6 @@ allowing users to find images via descriptive prompts and PostgreSQL retrieval.
 <img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/screenshots/ss4.png" alt="Alt text" width="700">
 
 
-## System Design
-<img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/ss3.png" alt="Alt text" width="700">
-
 ## Installation Guide
 
 1. Prerequisites
