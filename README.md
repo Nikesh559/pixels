@@ -39,9 +39,9 @@ allowing users to find images via descriptive prompts and PostgreSQL retrieval.
 
 ## Web Page
 
-<img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/ss1.png" alt="Alt text" width="700">
+<img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/screenshots/ss6.png" alt="Alt text" width="700">
 
-<img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/ss2.png" alt="Alt text" width="700">
+<img src="https://raw.githubusercontent.com/Nikesh559/pixels/refs/heads/main/screenshots/ss4.png" alt="Alt text" width="700">
 
 
 ## System Design
