@@ -9,7 +9,7 @@ The system is designed with a decoupled, event-driven architecture to ensure sca
 
   * Orchestration: An upload event is published to Kafka, which manages the processing queue.
 
-  * Vision Intelligence: A worker node consumes the event and uses CLIP to perform visual analysis and generate embeddings.
+  * Vision Intelligence: A worker node consumes the event and uses CLIP to generate embeddings.
 
   * Vectorization: Descriptive tags are processed by CLIP to generate high-dimensional embeddings.
 
